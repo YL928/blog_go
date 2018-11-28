@@ -17,6 +17,7 @@ func main() {
 	}))
 	e.GET("/api/heroes", router.Getheroes)
 	e.GET("/api/heroes/:id", router.Getheroes)
-	e.POST("/api/heroes", router.Createheroes)
+	e.POST("/api/heroes", router.Addheroes)
+	e.PUT("/api/heroes", router.Putheroes)
 	e.Logger.Fatal(e.Start(":3000"))
 }

@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	_ "fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -20,11 +21,39 @@ func init() {
 	db = database
 }
 
-// dbgetheroes asdadasdhasdjasdjansdasd
+// create new hero
+func Addheroes(name string) Hero {
+	row, err := db.Exec("INSERT INTO heroes (name) Values (?)", name)
+	checkErr(err)
+	id, err := row.LastInsertId()
+	checkErr(err)
+	return Hero{ID: int(id), Name: name}
+}
+
+// update list of heroes
+func UpdateHeroes(heroes []Hero) []Hero {
+	newheroes := []Hero{}
+	for h := range heroes {
+		fmt.Println(heroes)
+		fmt.Println(h)
+		fmt.Println("=======")
+		// row, err := db.Exec("UPDATE heroes set name = ? where id = ?", h.Name, h.ID)
+		// checkErr(err)
+		// row, err := res.RowsAffected()
+		// checkErr(err)
+		// if row.RowsAffected() == 1 {
+		// 	newheroes = append(newheroes, Hero{h.ID, h.Name})
+		// }
+
+	}
+	return newheroes
+}
+
+// get heroes or get particular one
 func Getheroes(id int) []Hero {
 	heroes := []Hero{}
 	if id == 0 {
-		rows, err := db.Query("SELECT * FROM heroes ORDER BY id LIMIT 10")
+		rows, err := db.Query("SELECT * FROM heroes ORDER BY id DESC LIMIT 10")
 		checkErr(err)
 		for rows.Next() {
 			var uid int
