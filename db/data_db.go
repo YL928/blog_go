@@ -30,21 +30,28 @@ func Addheroes(name string) Hero {
 	return Hero{ID: int(id), Name: name}
 }
 
+func DeleteHeroes(id int) int {
+	res, err := db.Exec("DELETE FROM heroes WHERE id = ?", id)
+	checkErr(err)
+	row, err := res.RowsAffected()
+	checkErr(err)
+	return int(row)
+}
+
 // update list of heroes
 func UpdateHeroes(heroes []Hero) []Hero {
 	newheroes := []Hero{}
-	for h := range heroes {
+	for _, h := range heroes {
 		fmt.Println(heroes)
 		fmt.Println(h)
 		fmt.Println("=======")
-		// row, err := db.Exec("UPDATE heroes set name = ? where id = ?", h.Name, h.ID)
-		// checkErr(err)
-		// row, err := res.RowsAffected()
-		// checkErr(err)
-		// if row.RowsAffected() == 1 {
-		// 	newheroes = append(newheroes, Hero{h.ID, h.Name})
-		// }
-
+		row, err := db.Exec("UPDATE heroes set name = ? where id = ?", h.Name, h.ID)
+		checkErr(err)
+		changeRow, err := row.RowsAffected()
+		checkErr(err)
+		if changeRow == 1 {
+			newheroes = append(newheroes, Hero{h.ID, h.Name})
+		}
 	}
 	return newheroes
 }
