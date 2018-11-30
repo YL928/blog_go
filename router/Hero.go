@@ -1,12 +1,11 @@
 package router
 
 import (
+	"blog/db"
 	"fmt"
 	"net/http"
-	"strconv"
-
-	"blog/db"
 	"reflect"
+	"strconv"
 
 	"github.com/labstack/echo"
 )
@@ -14,9 +13,15 @@ import (
 // Getheroes: To get heroes list or get specific hero
 func Getheroes(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	fmt.Println(id)
 	heroes := db.Getheroes(id)
 	fmt.Println(reflect.TypeOf(heroes))
+	return c.JSON(http.StatusOK, heroes)
+}
+
+// Getheroes: To get heroes list or get specific hero
+func Gethero(c echo.Context) error {
+	queryParams := c.QueryParams()
+	heroes := db.Gethero(queryParams)
 	return c.JSON(http.StatusOK, heroes)
 }
 

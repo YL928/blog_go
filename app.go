@@ -16,6 +16,7 @@ func main() {
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
 	e.GET("/api/heroes", router.Getheroes)
+	e.GET("/api/hero", router.Gethero)
 	e.GET("/api/heroes/:id", router.Getheroes)
 	e.DELETE("/api/heroes/:id", router.Deleteheroes)
 	e.POST("/api/heroes", router.Addheroes)

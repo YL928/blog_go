@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// Hero struct
 type Hero struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
@@ -85,6 +86,15 @@ func Getheroes(id int) []Hero {
 		}
 		defer rows.Close()
 	}
+	return heroes
+}
+
+// asdasdasdasdas
+func Gethero(q map) []Hero {
+	fmt.println(q)
+	heroes := []Hero{}
+	hero := Hero{1, "hhh"}
+	heroes = append(heroes, hero)
 	return heroes
 }
 
