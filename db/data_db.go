@@ -3,7 +3,6 @@ package db
 import (
 	"fmt"
 	_ "fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -89,14 +88,7 @@ func Getheroes(id int) []Hero {
 	return heroes
 }
 
-// asdasdasdasdas
-func Gethero(q map) []Hero {
-	fmt.println(q)
-	heroes := []Hero{}
-	hero := Hero{1, "hhh"}
-	heroes = append(heroes, hero)
-	return heroes
-}
+
 
 func checkErr(err error) {
 	if err != nil {
